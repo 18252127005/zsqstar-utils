@@ -23,6 +23,7 @@
         <module>zsqstar-log</module>
         <module>zsqstar-fileview</module>
         <module>zsqstar-socket</module>
+        <module>zsqstar-cronjob</module>
     </modules>
 
     <properties>
