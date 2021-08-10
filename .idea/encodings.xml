@@ -2,9 +2,14 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/zsqstar-object" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/zsqstar-object/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zsqstar-datastructure" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zsqstar-datastructure/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zsqstar-db/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zsqstar-fileview/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zsqstar-log/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zsqstar-poi/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zsqstar-request" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/zsqstar-request/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/zsqstar-socket/src/main/java" charset="UTF-8" />
   </component>
 </project>

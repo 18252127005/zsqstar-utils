@@ -6,8 +6,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="zsqstar-datastructure" />
+        <module name="zsqstar-fileview" />
+        <module name="zsqstar-socket" />
         <module name="zsqstar-request" />
-        <module name="zsqstar-object" />
+        <module name="zsqstar-poi" />
+        <module name="zsqstar-db" />
+        <module name="zsqstar-log" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -16,8 +21,13 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="zsqstar-object" options="-parameters" />
+      <module name="zsqstar-datastructure" options="-parameters" />
+      <module name="zsqstar-db" options="-parameters" />
+      <module name="zsqstar-fileview" options="-parameters" />
+      <module name="zsqstar-log" options="-parameters" />
+      <module name="zsqstar-poi" options="-parameters" />
       <module name="zsqstar-request" options="-parameters" />
+      <module name="zsqstar-socket" options="-parameters" />
     </option>
   </component>
 </project>

@@ -14,9 +14,15 @@
     <artifactId>zsqstar-utils</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
+
     <modules>
         <module>zsqstar-request</module>
-        <module>zsqstar-object</module>
+        <module>zsqstar-datastructure</module>
+        <module>zsqstar-db</module>
+        <module>zsqstar-poi</module>
+        <module>zsqstar-log</module>
+        <module>zsqstar-fileview</module>
+        <module>zsqstar-socket</module>
     </modules>
 
     <properties>
