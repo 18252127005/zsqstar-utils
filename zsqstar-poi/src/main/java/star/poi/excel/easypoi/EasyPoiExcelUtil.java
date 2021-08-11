@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -80,6 +81,59 @@ public class EasyPoiExcelUtil {
             excel.add(sheet);
         }
         exportExcel(excel, fileName, type, response);
+    }
+
+    /**
+     * 4. 单Excel文件多sheet导出Excel数据(注意sheetMap的key需与对象数组中的对象名称一致)
+     *
+     * @param sheetMap    map数据 如:sheetMap.put("PersonnelInfo",List<PersonnelInfo>);
+     * @param sheetName   sheet名称数组 如:new String[] {"人员信息","家庭信息",...};
+     * @param objectClass 对象名称数组 如:new String[] {"PersonnelInfo","EducatInfo",...};
+     * @param goalName    文件名称
+     * @return 文件存储地址
+     * @throws Exception
+     */
+    public String exportExcelManySheet(Map<Object, Object> sheetMap, String[] sheetName, String[] objectClass, String goalName) {
+        String fileGoalUrl = "/usr/opt/";
+
+        //判断参数是否为空
+        if (sheetName.length < 1 || objectClass.length < 1 || sheetMap == null || StringUtils.isNotEmpty(goalName)) {
+            return null;
+        }
+
+        try {
+            List<Map<String, Object>> sheetsList = new ArrayList<>();
+            for (int i = 0; i < sheetName.length; i++) {
+                //判断map和对象是否为空
+                if (StringUtils.isNotEmpty(objectClass[i]) && sheetMap.get(objectClass[i]) == null) {
+                    continue;
+                }
+                ExportParams exportParams = new ExportParams();
+                exportParams.setSheetName(sheetName[i]);
+//                exportParams.setStyle(ExcelExportStyler.class);
+                Map<String, Object> exportMap = new HashMap<>();
+                exportMap.put("title", exportParams);
+                exportMap.put("entity", Class.forName("com.isoftstone.common.utils.excelUtil.entity." + objectClass[i]));
+                exportMap.put("data", sheetMap.get(objectClass[i]));
+                sheetsList.add(exportMap);
+            }
+            Workbook workbook = ExcelExportUtil.exportExcel(sheetsList, ExcelType.HSSF);
+            // 判断文件存放地址是否存在,没有则创建
+            File savefile = new File(fileGoalUrl);
+            if (!savefile.exists()) {
+                log.info("单Excel文件多sheet导出Excel数据的存储文件目录不存在,为您创建文件夹!");
+                savefile.mkdirs();
+            }
+            goalName = fileGoalUrl + goalName + ".xls";
+            FileOutputStream fos = new FileOutputStream(goalName);
+            workbook.write(fos);
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.error("单Excel文件多sheet导出Excel数据异常:" + e);
+            return null;
+        }
+        return goalName;
     }
 
 
@@ -220,7 +274,6 @@ public class EasyPoiExcelUtil {
         public void setDataList(List<?> dataList) {
             this.dataList = dataList;
         }
-
     }
 
 
