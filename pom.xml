@@ -25,6 +25,8 @@
         <module>zsqstar-cronjob</module>
         <module>zsqstar-cache</module>
         <module>zsqstar-core</module>
+        <module>zsqstar-exception</module>
+        <module>zsqstar-file</module>
     </modules>
 
     <properties>
