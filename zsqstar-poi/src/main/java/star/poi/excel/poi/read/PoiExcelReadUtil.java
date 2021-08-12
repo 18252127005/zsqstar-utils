@@ -1,4 +1,4 @@
-package star.poi.excel.poi;
+package star.poi.excel.poi.read;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -7,12 +7,12 @@ import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.springframework.core.io.ClassPathResource;
+import star.poi.excel.poi.APoiExcelFuncUtil;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,7 +28,7 @@ import static star.poi.common.constants.PoiConstant.OfficeSuffixes.OFFICE_EXCEL_
  * @Date: 2021/8/11 4:46 下午
  * @Description: poi操作excel进行阅读功能
  */
-public class PoiExcelReadUtil extends APoiExcelFuncUtil {
+public abstract class PoiExcelReadUtil extends APoiExcelFuncUtil {
 
 
     /**
