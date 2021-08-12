@@ -11,5 +11,4 @@ package star.poi.excel.poi.read;
  */
 public class PoiExcelLargeReadUtil extends PoiExcelReadUtil {
 
-
 }
