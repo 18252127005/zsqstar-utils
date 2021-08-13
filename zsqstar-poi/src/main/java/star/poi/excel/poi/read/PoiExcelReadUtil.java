@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -11,6 +12,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.core.io.ClassPathResource;
 import star.poi.excel.poi.APoiExcelFuncUtil;
 
@@ -173,6 +175,23 @@ public abstract class PoiExcelReadUtil extends APoiExcelFuncUtil {
         return wb;
     }
 
+    /**
+     * 获取workbook
+     */
+    private static Workbook getWorkbook(InputStream inputStream, String fileName) throws Exception {
+        Workbook workbook = null;
+        if (isExcel2003(fileName)) {
+            //2003 版本的excel
+            workbook = new HSSFWorkbook(inputStream);
+        } else if (isExcel2007(fileName)) {
+            //2007 版本的excel
+            workbook = new XSSFWorkbook(inputStream);
+        } else {
+            throw new Exception("Excel文件格式有误！");
+        }
+        return workbook;
+    }
+
 //==================================================Workbook============================================================
 
 
@@ -229,6 +248,33 @@ public abstract class PoiExcelReadUtil extends APoiExcelFuncUtil {
             break;
         }
         return returnRow;
+    }
+
+    /**
+     * 3.4 读取Excel表格表头的内容
+     *
+     * @param inputStream
+     * @return String 表头内容的数组
+     */
+    public static List<String> readTitle(InputStream inputStream, String fileName) throws Exception {
+        List<String> titles = Lists.newArrayList();
+        Workbook workbook = getWorkbook(inputStream, fileName);
+        if (workbook == null) {
+            return titles;
+        }
+        Sheet sheet = workbook.getSheetAt(0);
+        //excel为空
+        if (sheet.getLastRowNum() == 0 && sheet.getPhysicalNumberOfRows() == 0) {
+            return titles;
+        }
+        //得到首行的row
+        Row row = sheet.getRow(0);
+        //标题总列数
+        int colNum = row.getPhysicalNumberOfCells();
+        for (int i = 0; i < colNum; i++) {
+            titles.add(row.getCell(i).toString());
+        }
+        return titles;
     }
 
 
@@ -292,14 +338,22 @@ public abstract class PoiExcelReadUtil extends APoiExcelFuncUtil {
         return sb.toString();
     }
 
+    // 是否是2003的excel，返回true是2003
+    private static boolean isExcel2003(String filePath) {
+        return filePath.matches("^.+\\.(?i)(xls)$");
+    }
+
+    // 是否是2007的excel，返回true是2007
+    private static boolean isExcel2007(String filePath) {
+        return filePath.matches("^.+\\.(?i)(xlsx)$");
+    }
 
 //==================================================Common封装=====================================================
 
 
-
     public static void main(String[] args) throws IOException, InvalidFormatException {
         ClassPathResource classPathResource = new ClassPathResource("temp/班级人员信息.xlsx");
-        InputStream resourceAsStream = PoiExcelReadUtil.class.getClassLoader().getResourceAsStream("temp/班级人员信息.xlsx");
+        InputStream resourceAsStream = PoiExcelReadUtil.class.getClassLoader().getResourceAsStream("temp/班级人员信息.xls");
 
 //        String s = readExcel(resourceAsStream, 0);
         List<List<Map<Integer, Object>>> listList = readExcelToListMapStructure(resourceAsStream, 0);
