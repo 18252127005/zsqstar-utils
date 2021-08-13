@@ -12,8 +12,8 @@ public interface PoiConstant {
      */
     interface  OfficeSuffixes {
         // excel的格式
-        String OFFICE_EXCEL_XLS = "xls";
-        String OFFICE_EXCEL_XLSX = "xlsx";
+        String OFFICE_EXCEL_XLS = "xls";            //03版的扩展名
+        String OFFICE_EXCEL_XLSX = "xlsx";          //07版的扩展名
 
         // word格式
         String OFFICE_WORD_DOC = "doc";
@@ -26,5 +26,9 @@ public interface PoiConstant {
         String OFFICE_POWERPOINT_PPT = "ppt";
         String OFFICE_POWERPOINT_PPTX = "pptx";
     }
+
+
+
+
 
 }

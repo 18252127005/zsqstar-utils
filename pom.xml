@@ -27,6 +27,7 @@
         <module>zsqstar-core</module>
         <module>zsqstar-exception</module>
         <module>zsqstar-file</module>
+        <module>zsqstar-mq</module>
     </modules>
 
     <properties>

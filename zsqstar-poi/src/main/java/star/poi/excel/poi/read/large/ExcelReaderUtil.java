@@ -1,8 +1,4 @@
-package star.poi.excel.poi.read;
-
-import star.poi.common.constants.PoiConstant;
-import star.poi.excel.poi.read.large.ExcelXlsReader;
-import star.poi.excel.poi.read.large.ExcelXlsxReaderWithDefaultHandler;
+package star.poi.excel.poi.read.large;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -11,14 +7,14 @@ import java.util.List;
 
 /**
  * @author: Mark.ZSQ
- * @Date: 2021/8/12 3:54 下午
- * @Description: poi操作excel进行阅读功能-大量数据处理
- * <p>
- * 数据量比较大(8万条以上)的excel文件解析，将excel文件解析为 行列坐标-值的形式存入map中，此方式速度快，内存耗损小 但只能读取excle文件
- * 提供处理单个sheet方法 processOneSheet(String  filename) 以及处理多个sheet方法 processAllSheets(String  filename)
- * 只需传入文件路径+文件名即可  调用处理方法结束后，只需 接收LargeExcelFileReadUtil.getRowContents()返回值即可获得解析后的数据
+ * @Date: 2021/8/13 10:17 上午
+ * @Description:
  */
-public class PoiExcelLargeReadUtil extends PoiExcelReadUtil {
+public class ExcelReaderUtil {
+    //excel2003扩展名
+    public static final String EXCEL03_EXTENSION = ".xls";
+    //excel2007扩展名
+    public static final String EXCEL07_EXTENSION = ".xlsx";
 
     /**
      * 每获取一条记录，即打印
@@ -58,16 +54,23 @@ public class PoiExcelLargeReadUtil extends PoiExcelReadUtil {
      * @throws Exception
      */
     public static void readExcel(String fileName) throws Exception {
+        long l = System.nanoTime();
+
         int totalRows = 0;
-        if (fileName.endsWith(PoiConstant.OfficeSuffixes.OFFICE_EXCEL_XLS)) { //处理excel2003文件
+        if (fileName.endsWith(EXCEL03_EXTENSION)) { //处理excel2003文件
             ExcelXlsReader excelXls = new ExcelXlsReader();
             totalRows = excelXls.process(fileName);
-        } else if (fileName.endsWith(PoiConstant.OfficeSuffixes.OFFICE_EXCEL_XLSX)) {//处理excel2007文件
+        } else if (fileName.endsWith(EXCEL07_EXTENSION)) {//处理excel2007文件
             ExcelXlsxReaderWithDefaultHandler excelXlsxReader = new ExcelXlsxReaderWithDefaultHandler();
             totalRows = excelXlsxReader.process(fileName);
         } else {
-            throw new Exception("文件格式错误，fileName的扩展名只能是xls或xlsx");
+            throw new Exception("文件格式错误，fileName的扩展名只能是xls或xlsx。");
         }
+
+
+        long end = System.nanoTime();
+        System.out.println((end - l) / 1000000000L + "秒");
+        System.out.println("发送的总行数：" + totalRows);
     }
 
 
@@ -94,4 +97,14 @@ public class PoiExcelLargeReadUtil extends PoiExcelReadUtil {
         fos.close();
     }
 
+    public static void main(String[] args) throws Exception {
+        //String path="D:\\Github\\test.xls";
+        //String path="D:\\H3CIDEA\\POIExcel\\test.xlsx";
+        String path = "/Users/zhangshiqiang/company/Mark.ZSQ/testfile/产品对应关系导入模板01.xlsx";
+
+        /*ExcelReaderUtil.readExcel(file2.getAbsolutePath(),"/home/test/tmp.xlsx");*/
+        ExcelReaderUtil.readExcel(path);
+
+        /*readXlsx(file2.getAbsolutePath());*/
+    }
 }
