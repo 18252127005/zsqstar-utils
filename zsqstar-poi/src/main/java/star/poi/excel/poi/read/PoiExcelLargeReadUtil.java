@@ -1,8 +1,8 @@
 package star.poi.excel.poi.read;
 
 import star.poi.common.constants.PoiConstant;
-import star.poi.excel.poi.read.large.ExcelXlsReader;
-import star.poi.excel.poi.read.large.ExcelXlsxReaderWithDefaultHandler;
+import star.poi.excel.poi.read.largecomponent.ExcelXlsReader;
+import star.poi.excel.poi.read.largecomponent.ExcelXlsxReaderWithDefaultHandler;
 
 import java.io.File;
 import java.io.FileInputStream;

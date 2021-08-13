@@ -1,4 +1,4 @@
-package star.poi.excel.poi.read.large;
+package star.poi.excel.poi.read.largecomponent;
 
 import org.apache.poi.hssf.eventusermodel.*;
 import org.apache.poi.hssf.eventusermodel.dummyrecord.LastCellOfRowDummyRecord;
